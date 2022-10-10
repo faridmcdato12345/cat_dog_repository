@@ -26,4 +26,11 @@ trait DogsTrait{
         ->get('https://api.thedogapi.com/v1/images/search?breed_ids='.$breedId);
         return json_decode($response);
     }
+    public function dogsId($id){
+        $response = Http::withHeaders([
+            'x-api-key' => 'live_C9jTfoWJKbCyOXb3ttngNQ4m32b5PYkboCDjo6FwkuvUVN5pm4k1MfwnVm0rg7eJ'
+        ])
+        ->get('https://api.thedogapi.com/v1/images/search?breed_ids='.$id);
+        return json_decode($response);
+    }
 }
