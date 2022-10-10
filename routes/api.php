@@ -20,9 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/v1/breeds/{breed}',[AnimalController::class,'showBreedImageOnly']);
 Route::get('/v1/breeds/',[AnimalController::class,'index']);
-Route::get('/v1/{slug}image',function(){
-    dd("wtf");
-})->where('slug','([A-Za-z0-9\-\_\%\~\@\#$\^\&\*\(\)\+\.\>\<\:\;\"/]+)');
+Route::get('/v1/{id}',[AnimalController::class,'showIdImageOnly']);
 Route::get('/v1/list',[AnimalController::class,'showList']);
 
 

@@ -40,7 +40,7 @@ class AnimalController extends Controller
             {
                 return $this->paginate(collect($this->catsDataImageOnly($breed)),$limit,$page);
             }
-            elseif(!(new CheckBreedService)->catsBreed($breed) && !(new CheckBreedService)->dogsBreed($breed))
+            elseif(!(new CheckBreedService)->catsBreed($breed) && (new CheckBreedService)->dogsBreed($breed))
             {
                 return $this->paginate(collect($this->dogsDataImageOnly($breed)),$limit,$page);
             }
@@ -60,5 +60,34 @@ class AnimalController extends Controller
         $page = $request->query('page');
         $limit = $request->query('limit');
         return $this->paginate(collect($this->catsDogsWithOutBreedDataImageOnly()),$limit,$page);
+    }
+
+    public function showIdImageOnly(Request $request,$id)
+    {
+        if(!$request->query('page') || !$request->query('limit'))
+        {
+            return response()->json(['message' => 'page and limit is required.']);
+        }
+        $page = $request->query('page');
+        $limit = $request->query('limit');
+        try {
+            if((new CheckBreedService)->catsId($id) && (new CheckBreedService)->dogsId($id))
+            {
+                return $this->paginate(collect($this->catsDogsWithIdBreedDataImageOnly(false,$id)),$limit,$page);
+            }
+            elseif((new CheckBreedService)->catsId($id) && !(new CheckBreedService)->dogsId($id))
+            {
+                return $this->paginate(collect($this->catsIdImageOnly($id)),$limit,$page);
+            }
+            elseif(!(new CheckBreedService)->catsId($id) && (new CheckBreedService)->dogsId($id))
+            {
+                return $this->paginate(collect($this->dogsIdImageOnly($id)),$limit,$page);
+            }
+            else{
+                return response()->json(['message' => 'No id found.'],200);
+            }  
+        } catch (\Throwable $e) {
+            return response()->json($e);
+        }
     }
 }

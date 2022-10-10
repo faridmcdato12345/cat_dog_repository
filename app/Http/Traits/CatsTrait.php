@@ -25,4 +25,11 @@ trait CatsTrait
         ->get('https://api.thecatapi.com/v1/images/search?breed_ids='.$breedId);
         return json_decode($response);
     }
+    public function catsId($id){
+        $response = Http::withHeaders([
+            'x-api-key' => 'live_ma0cFDKjqG3mZmcXlim6hKvgy8IkwsbLvM0AwRn6XJ0yWUb47KKaYHgGBS4UEmMG'
+        ])
+        ->get('https://api.thecatapi.com/v1/images/search?breed_ids='.$id);
+        return json_decode($response);
+    }
 }

@@ -30,9 +30,16 @@ class AnimalController extends Controller {
         ->mutateBreedImageResponse($this->catsBreed($breed));
         return $catData;
     }
+    public function catsIdImageOnly($id)
+    {
+        $catData = (new ManipulateResponseService)
+        ->mutateBreedImageResponse($this->catsBreed($id));
+        return $catData;
+    }
 
     /**
-     * dogsDataImageOnly function will manipulated dog data to image only data
+     * dogsDataImageOnly function will 
+     * manipulated dog data to image only data
      */
     public function dogsDataImageOnly($breed)
     {
@@ -40,7 +47,12 @@ class AnimalController extends Controller {
         ->mutateBreedImageResponse($this->dogsBreed($breed));
         return $dogData;
     }
-
+    public function dogsIdImageOnly($id)
+    {
+        $dogData = (new ManipulateResponseService)
+        ->mutateBreedImageResponse($this->dogsId($id));
+        return $dogData;
+    }
     public function catsDogsWithBreedDataImageOnly($breed){
         $catData = (new ManipulateResponseService)
         ->mutateBreedImageResponse($this->catsBreed($breed));
@@ -49,6 +61,13 @@ class AnimalController extends Controller {
         return array_merge($catData,$dogData);
     }
     public function catsDogsWithOutBreedDataImageOnly(){
+        $catData = (new ManipulateResponseService)
+        ->mutateBreedImageResponse($this->catsData());
+        $dogData = (new ManipulateResponseService)
+        ->mutateBreedImageResponse($this->dogsData());
+        return array_merge($catData,$dogData);
+    }
+    public function catsDogsWithIdBreedDataImageOnly(){
         $catData = (new ManipulateResponseService)
         ->mutateBreedImageResponse($this->catsData());
         $dogData = (new ManipulateResponseService)
