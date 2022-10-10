@@ -6,20 +6,41 @@ use Illuminate\Http\Request;
 use App\Http\Traits\PaginatorTrait;
 use Illuminate\Support\Facades\URL;
 use App\Http\ControllerExtends\AnimalController as Controller;
+use App\Http\Services\CheckBreedService;
+use App\Http\Traits\CatsTrait;
+use Facade\FlareClient\Http\Response;
 
 class AnimalController extends Controller
 {
     use PaginatorTrait;
-
     public function index(Request $request)
     {  
         $page = $request->query('page');
         $limit = $request->query('limit');
         return $this->paginate(collect($this->combineData()),$limit,$page);
     }
-    public function showBreedImageOnly(Request $request){
+    public function showBreedImageOnly(Request $request,$breed){
         $page = $request->query('page');
         $limit = $request->query('limit');
-        return $this->paginate(collect($this->combineDateImageOnly()),$limit,$page);
+        try {
+            if((new CheckBreedService)->catsBreed($breed) && (new CheckBreedService)->dogsBreed($breed))
+            {
+                return $this->paginate(collect($this->catsDogsDataImageOnly($breed)),$limit,$page);
+            }
+            elseif((new CheckBreedService)->catsBreed($breed) && !(new CheckBreedService)->dogsBreed($breed))
+            {
+                return $this->paginate(collect($this->catsDataImageOnly($breed)),$limit,$page);
+            }
+            elseif(!(new CheckBreedService)->catsBreed($breed) && !(new CheckBreedService)->dogsBreed($breed))
+            {
+                return $this->paginate(collect($this->dogsDataImageOnly($breed)),$limit,$page);
+            }
+            else{
+                return response()->json(['message' => 'No breed found.'],200);
+            }            
+        } catch (\Throwable $e) {
+            return response()->json($e);
+        }
+        
     }
 }

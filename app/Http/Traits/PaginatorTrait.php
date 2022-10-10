@@ -8,6 +8,9 @@ use Illuminate\Pagination\Paginator;
 
 trait PaginatorTrait
 {
+    /**
+     * paginate function will paginate the the give data
+     */
 
     public function paginate($items, $perPage, $page, $options = [])
     {

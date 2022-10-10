@@ -6,6 +6,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class LengthAwarePaginatorService extends LengthAwarePaginator
 {
+    /**
+     * A class that change the default behavior of toArray function
+     * from LengthAwarePaginator class
+     */
     public function toArray()
     {
         return [
