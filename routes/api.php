@@ -18,7 +18,7 @@ $urlDecode = urldecode('%3A');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/v1/breeds/'.$urlDecode.'breed',[AnimalController::class,'showBreedImageOnly']);
+Route::get('/v1/breeds/{breed}',[AnimalController::class,'showBreedImageOnly']);
 Route::get('/v1/breeds/',[AnimalController::class,'index']);
 Route::get('/v1/{slug}image',function(){
     dd("wtf");

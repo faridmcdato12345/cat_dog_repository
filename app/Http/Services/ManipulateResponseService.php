@@ -5,6 +5,11 @@ namespace App\Http\Services;
 class ManipulateResponseService 
 {
 
+    /**
+     * mutateBreedImageResponse a function that will
+     * get data from the parameter and returns data which
+     * contains only the image 
+     */
     public function mutateBreedImageResponse(array $response){
         $result = array();
         foreach($response as &$data){
@@ -21,6 +26,10 @@ class ManipulateResponseService
         }
         return $result;
     }
+    /**
+     * mutateResponse is a function that manipulate
+     * the format of the given data from parameter
+     */
     public function mutateResponse(array $response)
     {
         $result = array();
