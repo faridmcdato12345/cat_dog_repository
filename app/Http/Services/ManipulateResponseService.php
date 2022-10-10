@@ -48,7 +48,9 @@ class ManipulateResponseService
         }
         return $result;
     }
-
+    /**
+     * 
+     */
     private static function object_to_array($data)
     {
         if (is_array($data) || is_object($data))
