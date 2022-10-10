@@ -41,11 +41,18 @@ class AnimalController extends Controller {
         return $dogData;
     }
 
-    public function catsDogsDataImageOnly($breed){
+    public function catsDogsWithBreedDataImageOnly($breed){
         $catData = (new ManipulateResponseService)
         ->mutateBreedImageResponse($this->catsBreed($breed));
         $dogData = (new ManipulateResponseService)
         ->mutateBreedImageResponse($this->dogsBreed($breed));
+        return array_merge($catData,$dogData);
+    }
+    public function catsDogsWithOutBreedDataImageOnly(){
+        $catData = (new ManipulateResponseService)
+        ->mutateBreedImageResponse($this->catsData());
+        $dogData = (new ManipulateResponseService)
+        ->mutateBreedImageResponse($this->dogsData());
         return array_merge($catData,$dogData);
     }
 }
